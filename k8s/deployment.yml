@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-world-deployment
+  namespace: default
+spec:
+  replicas: 3
+  revisionHistoryLimit:
+  selector:
+    matchLabels:
+      app: hello-world
+  strategy:
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        env: "prod"
+        app: "hello-world"
+        version: "0.1.0-SNAPSHOT"
+    spec:
+      containers:
+      - name: hello-world
+        image: winael/hello-world:0.1.0-SNAPSHOT
+        imagePullPolicy: Always
+        command: ["/bin/bash"]
+        args: ["-c","/usr/bin/java","-jar","/hello-world-0.1.0-SNAPSHOT.jar"]
+        ports:
+        - containerPort: 8080
+          name: hello-world
+        resources:
+          limits:
+            cpu: .2 
+            memory: 500
+          requests: 
+            cpu: .1
+            memory:  250
+
+

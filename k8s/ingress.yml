@@ -1,0 +1,22 @@
+apiVersion: extensions/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx-int
+    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+    ingress.carrefour.com/dns-managed: "True"
+  name: hello-world-ingress
+  namespace: default
+spec:
+  rules:
+  - host: hello-world
+    http:
+      paths:
+      - backend:
+          serviceName: hello-world-service
+          servicePort: 80
+        path: /
+  tls:
+  - hosts:
+    - hello-world
+
