@@ -12,3 +12,4 @@ spec:
       - backend:
           serviceName: hello-world-service
           servicePort: 81
+        path: "/greeting"
