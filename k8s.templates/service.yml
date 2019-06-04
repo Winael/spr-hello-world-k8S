@@ -2,15 +2,15 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: hello-world
-  name: hello-world-service
+    app: APP_NAME
+  name: APP_NAME-service
 spec:      
   ports:
-  - name: hello-world
+  - name: APP_NAME
     port: 81
     targetPort: 8080
   selector:
-    app: hello-world
+    app: APP_NAME
   sessionAffinity: None
   type: ClusterIP
 

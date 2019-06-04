@@ -1,14 +1,26 @@
 FROM maven:3-jdk-8-alpine as BUILD
 
-COPY src /usr/src/hello-world/src
-COPY pom.xml /usr/src/hello-world
+ARG BUILD_VERSION
+ARG APP_NAME
 
-RUN mvn -f /usr/src/hello-world/pom.xml clean package
+COPY src /usr/src/$APP_NAME/src
+COPY pom.xml /usr/src/${APP_NAME}
+
+RUN mvn -f /usr/src/${APP_NAME}/pom.xml clean package
 
 FROM java:8
 
-COPY --from=BUILD /usr/src/hello-world/target/hello-world-0.1.0-SNAPSHOT.jar /hello-world-0.1.0-SNAPSHOT.jar
+ARG BUILD_VERSION
+ARG APP_NAME
+
+ENV BUILD_VERSION ${BUILD_VERSION}
+ENV APP_NAME ${APP_NAME}
+
+COPY --from=BUILD /usr/src/${APP_NAME}/target/${APP_NAME}-${BUILD_VERSION}.jar /${APP_NAME}-${BUILD_VERSION}.jar
+COPY dockerfiles/entrypoint.sh /entrypoint.sh
+
+RUN chmod +x /entrypoint.sh
 
 EXPOSE 8080
 
-ENTRYPOINT ["java","-jar","/hello-world-0.1.0-SNAPSHOT.jar"]
+ENTRYPOINT ["/entrypoint.sh"]

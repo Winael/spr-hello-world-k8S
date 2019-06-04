@@ -1,13 +1,13 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hello-world-deployment
+  name: APP_NAME-deployment
 spec:
   replicas: 3
   revisionHistoryLimit:
   selector:
     matchLabels:
-      app: hello-world
+      app: APP_NAME
   strategy:
     rollingUpdate:
       maxSurge: 0
@@ -17,16 +17,16 @@ spec:
     metadata:
       labels:
         env: "prod"
-        app: "hello-world"
-        version: "0.1.0-SNAPSHOT"
+        app: "APP_NAME"
+        version: "BUILD_VERSION"
     spec:
       containers:
-      - name: hello-world
-        image: winael/hello-world:0.1.0-SNAPSHOT
+      - name: APP_NAME
+        image: REGISTRY/APP_NAME:BUILD_VERSION
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
-          name: hello-world
+          name: APP_NAME
         resources:
           limits:
             cpu: ".5" 
