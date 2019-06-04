@@ -34,5 +34,18 @@ spec:
           requests: 
             cpu: ".1"
             memory: "100Mi"
-
+        readinessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8080
+            scheme: "HTTP"
+          initialDelaySeconds: 120
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 120
+          periodSeconds: 10
 
