@@ -1,4 +1,4 @@
-package hello-extia;
+package hello;
 
 public class Greeting {
 

@@ -49,6 +49,11 @@ function generate_k8s_resource() {
       -e \
       "s/REGISTRY/${REGISTRY}/g" \
       ${BUILD_RESOURCE_FOLDER}/${FILE}
+    sed \
+      -i \
+      -e \
+      "s/HOST/${HOST}/g" \
+      ${BUILD_RESOURCE_FOLDER}/${FILE}
   done
 }
 

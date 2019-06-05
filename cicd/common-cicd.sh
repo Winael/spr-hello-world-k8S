@@ -18,6 +18,7 @@ case ${ENVIRONMENT_NAME} in
 
   local)
     REGISTRY="localhost:32000"
+    HOST=localhost
     ;;
 
 esac

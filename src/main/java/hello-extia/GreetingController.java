@@ -1,4 +1,4 @@
-package hello-extia;
+package hello;
 
 import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.web.bind.annotation.RequestMapping;
